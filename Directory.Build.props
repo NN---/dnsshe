@@ -1,0 +1,53 @@
+<!--EXTERNAL_PROPERTIES: RuntimeIdentifier;MSBuildThisFileDirectory-->
+<Project>
+  <PropertyGroup>
+    <Configurations>Debug;Release</Configurations>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SignAssembly>True</SignAssembly>
+    <DelaySign>False</DelaySign>
+    <AssemblyOriginatorKeyFile Condition="'$(Production)' == 'True'">$(MSBuildThisFileDirectory)\build\dnsshe.snk</AssemblyOriginatorKeyFile>
+
+    <Version>0.0.1</Version>
+    <PackageVersion>$(Version)</PackageVersion>
+
+    <Company>NN</Company>
+
+    <Copyright>NN, 2021</Copyright>
+    <RepositoryUrl>https://github.com/NN---/dnsshe</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/NN---/dnsshe</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <PublishRepositoryUrl>True</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <RunAnalyzers>True</RunAnalyzers>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <DisableImplicitNamespaceImports>True</DisableImplicitNamespaceImports>
+
+    <!-- Cross platform definitions -->
+    <HasRuntimeIdentifier>False</HasRuntimeIdentifier>
+    <HasRuntimeIdentifier Condition="'$(RuntimeIdentifier)' != ''">True</HasRuntimeIdentifier>
+
+    <RuntimeIdentifierWindows>False</RuntimeIdentifierWindows>
+    <RuntimeIdentifierWindows Condition="$(RuntimeIdentifier.StartsWith('win'))">True</RuntimeIdentifierWindows>
+    <RuntimeIdentifierUnix>False</RuntimeIdentifierUnix>
+    <RuntimeIdentifierUnix Condition="$(HasRuntimeIdentifier) And !$(RuntimeIdentifierWindows)">True</RuntimeIdentifierUnix>
+
+    <BuildWindows>False</BuildWindows>
+    <BuildWindows Condition="$([MSBuild]::IsOsPlatform('Windows'))">True</BuildWindows>
+
+    <DefineConstants Condition="$(RuntimeIdentifierWindows) Or (!$(HasRuntimeIdentifier) And $(BuildWindows))">$(DefineConstants);TARGET_WINDOWS</DefineConstants>
+    <DefineConstants Condition="$(RuntimeIdentifierUnix) Or (!$(HasRuntimeIdentifier) And !$(BuildWindows))">$(DefineConstants);TARGET_UNIX</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.0-beta-20204-02" PrivateAssets="All"/>
+  </ItemGroup>
+</Project>

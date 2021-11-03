@@ -227,6 +227,9 @@ dotnet_diagnostic.CA1008.severity = none
 # Mark enums with FlagsAttribute
 dotnet_diagnostic.CA1027.severity = none
 
+# Do not declare visible instance fields
+dotnet_diagnostic.CA1051.severity = none
+
 # The enum member has the same constant value as member
 dotnet_diagnostic.CA1069.severity = none
 

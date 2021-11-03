@@ -1,0 +1,38 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '5.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+          include-prerelease: true
+      - name: Restore
+        run: dotnet restore
+      - name: Prepare strong name
+        run: unzip -P "${{ secrets.SNK_PASS }}" build/dnsshe.zip -d build/
+      - name: Build
+        run: dotnet build --configuration Release --no-restore -p:Production=True
+      - name: Remove strong name
+        run: rm build/dnsshe.snk
+      - name: Test with dotnet
+        run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+      - name: Pack
+        run: dotnet pack --configuration Release
+      - name: Upload nupkg
+        uses: kittaakos/upload-artifact-as-is@v0
+        with:
+          path: NN.Dnsshe/bin/Release/*.nupkg
+      - name: Upload snupkg
+        uses: kittaakos/upload-artifact-as-is@v0
+        with:
+          path: NN.Dnsshe/bin/Release/*.snupkg

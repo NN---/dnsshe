@@ -1,0 +1,246 @@
+# noinspection EditorConfigKeyCorrectness
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+### Compiler diagnostic ###
+
+# The method didn't use DefaultDllImportSearchPaths attribute for P/Invokes.
+dotnet_diagnostic.CA5392.severity = none
+
+# Nullability as error
+# CS8600: Converting null literal or possible null value to non-nullable type.
+dotnet_diagnostic.CS8600.severity = error
+# CS8602: Dereference of a possibly null reference.
+dotnet_diagnostic.CS8602.severity = error
+# CS8603: Possible null reference return.
+dotnet_diagnostic.CS8603.severity = error
+# CS8604: Possible null reference argument.
+dotnet_diagnostic.CS8604.severity = error
+# CS8605: Unboxing a possibly null value.
+dotnet_diagnostic.CS8605.severity = error
+# CS8606: Possible null reference assignment to iteration variable
+dotnet_diagnostic.CS8606.severity = error
+# CS8607: A possible null value may not be passed to a target marked with the [DisallowNull] attribute
+dotnet_diagnostic.CS8607.severity = error
+# CS8608: Nullability of reference types in type doesn't match overridden member.
+dotnet_diagnostic.CS8608.severity = error
+# CS8609: Nullability of reference types in return type doesn't match overridden member.
+dotnet_diagnostic.CS8609.severity = error
+# CS8610: Nullability of reference types in type of parameter doesn't match overridden member.
+dotnet_diagnostic.CS8610.severity = error
+# CS8611: Nullability of reference types in type of parameter doesn't match partial method declaration.
+dotnet_diagnostic.CS8611.severity = error
+# CS8612: Nullability of reference types in type doesn't match implicitly implemented member.
+dotnet_diagnostic.CS8612.severity = error
+# CS8613: Nullability of reference types in return type doesn't match implicitly implemented member.
+dotnet_diagnostic.CS8613.severity = error
+# CS8614: Nullability of reference types in type of parameter doesn't match implicitly implemented member.
+dotnet_diagnostic.CS8614.severity = error
+# CS8615: Nullability of reference types in type doesn't match implemented member.
+dotnet_diagnostic.CS8615.severity = error
+# CS8616: Nullability of reference types in return type doesn't match implemented member.
+dotnet_diagnostic.CS8616.severity = error
+# CS8617: Nullability of reference types in type of parameter doesn't match implemented member.
+dotnet_diagnostic.CS8617.severity = error
+# CS8619: Nullability of reference types in value doesn't match target type.
+dotnet_diagnostic.CS8619.severity = error
+# CS8620: Argument cannot be used for parameter due to differences in the nullability of reference types.
+dotnet_diagnostic.CS8620.severity = error
+# CS8621: Nullability of reference types in return type doesn't match the target delegate.
+dotnet_diagnostic.CS8621.severity = error
+# CS8622: Nullability of reference types in type of parameter doesn't match the target delegate.
+dotnet_diagnostic.CS8622.severity = error
+# CS8624: Argument cannot be used as an output for parameter due to differences in the nullability of reference types.
+dotnet_diagnostic.CS8624.severity = error
+# CS8625: Cannot convert null literal to non-nullable reference type.
+dotnet_diagnostic.CS8625.severity = error
+# CS8626: The 'as' operator may produce a null value for a type parameter.
+dotnet_diagnostic.CS8626.severity = error
+# CS8629: Nullable value type may be null.
+dotnet_diagnostic.CS8629.severity = error
+# CS8631: The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match constraint type.
+dotnet_diagnostic.CS8631.severity = error
+# CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+dotnet_diagnostic.CS8632.severity = error
+# CS8633: Nullability in constraints for type parameter doesn't match the constraints for type parameter in implicitly implemented interface method.
+dotnet_diagnostic.CS8633.severity = error
+# CS8634: The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'class' constraint.
+dotnet_diagnostic.CS8634.severity = error
+# CS8638: Conditional access may produce a null value for a type parameter.
+dotnet_diagnostic.CS8638.severity = error
+# CS8643: Nullability of reference types in explicit interface specifier doesn't match interface implemented by the type.
+dotnet_diagnostic.CS8643.severity = error
+# CS8644: Type does not implement interface member. Nullability of reference types in interface implemented by the base type doesn't match.
+dotnet_diagnostic.CS8644.severity = error
+# CS8645: Interface is already listed in the interface list with different nullability of reference types.
+dotnet_diagnostic.CS8645.severity = error
+# CS8653: A default expression introduces a null value for a type parameter.
+dotnet_diagnostic.CS8653.severity = error
+# CS8654: A null literal introduces a null value for a type parameter.
+dotnet_diagnostic.CS8654.severity = error
+# CS8655: The switch expression does not handle some null inputs.
+dotnet_diagnostic.CS8655.severity = error
+# CS8667: Partial method declarations have inconsistent nullability in constraints for type parameter
+dotnet_diagnostic.CS8667.severity = error
+# CS8714: The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
+dotnet_diagnostic.CS8714.severity = error
+
+### IDE Diagnostic ###
+
+# Indexing can be simplified
+dotnet_diagnostic.IDE0056.severity = none
+dotnet_diagnostic.IDE0057.severity = none
+
+# Remove unnecessary suppression
+dotnet_diagnostic.IDE0079.severity = none
+
+### Naming ###
+
+# avoid this. unless absolutely necessary
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_event = false:suggestion
+
+### C# Style ###
+
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = true:suggestion
+csharp_space_after_cast = false
+csharp_preferred_modifier_order = public, protected, internal, private, static, readonly, volatile, new, abstract, virtual, sealed, override, extern, unsafe, async:suggestion
+
+### .NET Style ###
+
+dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
+dotnet_style_predefined_type_for_member_access = true:suggestion
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
+dotnet_separate_import_directive_groups = true
+dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:suggestion
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:suggestion
+
+# ReSharper properties
+resharper_align_multiline_binary_expressions_chain = false
+resharper_apply_auto_detected_rules = false
+resharper_blank_lines_around_auto_property = 0
+resharper_blank_lines_around_property = 0
+resharper_braces_for_dowhile = not_required
+resharper_braces_for_fixed = not_required
+resharper_braces_for_lock = not_required
+resharper_braces_for_using = not_required
+resharper_constructor_or_destructor_body = expression_body
+resharper_csharp_blank_lines_inside_region = 0
+resharper_csharp_empty_block_style = together_same_line
+resharper_csharp_keep_blank_lines_in_code = 1
+resharper_csharp_keep_blank_lines_in_declarations = 1
+resharper_csharp_wrap_after_declaration_lpar = true
+resharper_csharp_wrap_after_invocation_lpar = true
+resharper_csharp_wrap_before_binary_opsign = true
+resharper_csharp_wrap_before_first_type_parameter_constraint = true
+resharper_csharp_wrap_parameters_style = chop_if_long
+resharper_int_align_declaration_names = true
+resharper_keep_existing_expr_member_arrangement = false
+resharper_keep_existing_initializer_arrangement = false
+resharper_keep_existing_linebreaks = false
+resharper_local_function_body = expression_body
+resharper_method_or_operator_body = expression_body
+resharper_namespace_body = block_scoped
+resharper_parentheses_non_obvious_operations = none, bitwise, bitwise_inclusive_or, range, bitwise_exclusive_or, shift, bitwise_and
+resharper_place_attribute_on_same_line = false
+resharper_place_simple_accessor_on_single_line = false
+resharper_space_after_cast = false
+resharper_space_within_single_line_array_initializer_braces = true
+resharper_wrap_text = false
+resharper_xmldoc_attribute_style = on_single_line
+resharper_xmldoc_blank_line_after_pi = false
+resharper_xmldoc_indent_child_elements = ZeroIndent
+resharper_xmldoc_indent_text = ZeroIndent
+resharper_xmldoc_linebreaks_inside_tags_for_elements_longer_than = 100
+resharper_xmldoc_linebreaks_inside_tags_for_elements_with_child_elements = false
+resharper_xmldoc_pi_attributes_indent = single_indent
+resharper_xmldoc_pi_attribute_style = on_single_line
+resharper_xmldoc_space_before_self_closing = false
+resharper_xmldoc_wrap_around_elements = false
+resharper_xmldoc_wrap_tags_and_pi = false
+
+# ReSharper inspection severities
+resharper_arguments_style_literal_highlighting = none
+resharper_arrange_constructor_or_destructor_body_highlighting = suggestion
+resharper_arrange_local_function_body_highlighting = suggestion
+resharper_arrange_method_or_operator_body_highlighting = suggestion
+resharper_arrange_namespace_body_highlighting = error
+resharper_arrange_redundant_parentheses_highlighting = hint
+resharper_arrange_this_qualifier_highlighting = hint
+resharper_built_in_type_reference_style_for_member_access_highlighting = hint
+resharper_built_in_type_reference_style_highlighting = hint
+resharper_convert_closure_to_method_group_highlighting = hint
+resharper_convert_if_statement_to_return_statement_highlighting = none
+resharper_convert_to_auto_property_with_private_setter_highlighting = none
+resharper_convert_to_lambda_expression_when_possible_highlighting = suggestion
+resharper_convert_to_using_declaration_highlighting = none
+resharper_field_can_be_made_read_only_global_highlighting = warning
+resharper_invert_if_highlighting = none
+resharper_invocation_is_skipped_highlighting = none
+resharper_join_null_check_with_usage_highlighting = hint
+resharper_local_suppression_highlighting = none
+resharper_loop_can_be_converted_to_query_highlighting = none
+resharper_member_can_be_private_global_highlighting = warning
+resharper_missing_suppression_justification_highlighting = none
+resharper_parameter_only_used_for_precondition_check_local_highlighting = none
+resharper_redundant_argument_default_value_highlighting = none
+resharper_redundant_attribute_usage_property_highlighting = hint
+resharper_redundant_base_qualifier_highlighting = warning
+resharper_redundant_default_member_initializer_highlighting = none
+resharper_region_with_single_element_highlighting = none
+resharper_return_type_can_be_enumerable_global_highlighting = none
+resharper_suggest_base_type_for_parameter_highlighting = none
+resharper_suggest_var_or_type_built_in_types_highlighting = hint
+resharper_switch_expression_handles_some_known_enum_values_with_exception_in_default_highlighting = none
+resharper_tail_recursive_call_highlighting = warning
+resharper_unused_parameter_local_highlighting = hint
+resharper_use_index_from_end_expression_highlighting = none
+resharper_use_nameof_expression_highlighting = warning
+
+[*.cs]
+indent_size = 4
+csharp_style_namespace_declarations=file_scoped:silent
+csharp_style_expression_bodied_operators=true:silent
+csharp_style_expression_bodied_constructors=true:silent
+csharp_style_expression_bodied_methods=true:silent
+
+[*.xml]
+indent_size = 2
+
+[**/Native/*]
+
+# Add a member that has a value of zero with a suggested name of 'None'
+dotnet_diagnostic.CA1008.severity = none
+
+# Mark enums with FlagsAttribute
+dotnet_diagnostic.CA1027.severity = none
+
+# The enum member has the same constant value as member
+dotnet_diagnostic.CA1069.severity = none
+
+# P/Invoke method should not be visible.
+dotnet_diagnostic.CA1401.severity = none
+
+# Remove the underscores from member name
+dotnet_diagnostic.CA1707.severity = none
+
+# struct should override Equals, operator==, operator!=
+dotnet_diagnostic.CA1815.severity = none
+
+# Specify marshaling for P/Invoke string arguments
+dotnet_diagnostic.CA2101.severity = none
+
+# Naming rule violation
+dotnet_diagnostic.IDE1006.severity = none

@@ -8,14 +8,20 @@
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyFile Condition="'$(Production)' == 'True'">$(MSBuildThisFileDirectory)\build\dnsshe.snk</AssemblyOriginatorKeyFile>
 
-    <Version>0.0.1</Version>
-    <PackageVersion>$(Version)</PackageVersion>
-
-    <Company>NN</Company>
+    <Version>0.0.2</Version>
 
     <Copyright>NN, 2021</Copyright>
     <RepositoryUrl>https://github.com/NN---/dnsshe</RepositoryUrl>
+
+    <Title>dnsshe</Title>
+    <Authors>NN</Authors>
+    <Company>NN</Company>
+    <Product>dnsshe</Product>
+    <Description>A .NET wrapper for SSH libraries.</Description>
+    <PackageVersion>$(Version)</PackageVersion>
     <PackageProjectUrl>https://github.com/NN---/dnsshe</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>ssh</PackageTags>
     <RepositoryType>git</RepositoryType>
 
     <PublishRepositoryUrl>True</PublishRepositoryUrl>

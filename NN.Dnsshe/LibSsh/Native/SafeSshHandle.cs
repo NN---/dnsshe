@@ -9,9 +9,7 @@ namespace NN.Dnsshe.LibSsh.Native
     [PublicAPI]
     public sealed class SafeSshHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
-        public SafeSshHandle() : this(true) { }
-
-        public SafeSshHandle(bool ownsHandle) : base(ownsHandle) { }
+        public SafeSshHandle() : base(true) { }
 
         public SafeSshHandle(IntPtr handle, bool ownsHandle):
             base(ownsHandle)

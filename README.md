@@ -1,3 +1,6 @@
+[![Gitter](https://badges.gitter.im/dnsshe/community.svg)](https://gitter.im/dnsshe/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+[![NuGet](https://img.shields.io/nuget/v/NN.Dnsshe.svg?style=flat)](https://www.nuget.org/packages/NN.Dnsshe/)
+
 # **D**ot**N**et**S**ecure**SHE**ll #
 
 Pronounced dnishche (dʲnʲiɕːe) which means [bottom](https://en.wiktionary.org/wiki/%D0%B4%D0%BD%D0%B8%D1%89%D0%B5).  

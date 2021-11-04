@@ -1,5 +1,7 @@
 # **D**ot**N**et**S**ecure**SHE**ll #
 
+[![Join the chat at https://gitter.im/NN---/dnsshe](https://badges.gitter.im/NN---/dnsshe.svg)](https://gitter.im/NN---/dnsshe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Pronounced dnishche (dʲnʲiɕːe) which means [bottom](https://en.wiktionary.org/wiki/%D0%B4%D0%BD%D0%B8%D1%89%D0%B5).  
 A .NET wrapper for SSH libraries.
 

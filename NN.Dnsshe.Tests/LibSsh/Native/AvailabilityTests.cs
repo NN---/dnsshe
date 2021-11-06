@@ -131,6 +131,32 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         [Test]
         [Category("Availability")]
         [Explicit]
+        public void SshString()
+        {
+            nuint size = 16;
+
+            using var str = NativeMethods.ssh_string_new(size);
+            Assert.AreEqual(size, NativeMethods.ssh_string_len(str));
+
+            using var str2 = NativeMethods.ssh_string_copy(str);
+
+            using var chr = NativeMethods.ssh_string_to_char(str);
+
+            NativeMethods.ssh_string_burn(str);
+
+            var errInt = NativeMethods.ssh_string_fill(str, new byte[size], size);
+            Assert.Zero(errInt);
+
+            var data = NativeMethods.ssh_string_get_char(str);
+            Assert.AreNotEqual(IntPtr.Zero, data);
+
+            data = NativeMethods.ssh_string_data(str);
+            Assert.AreNotEqual(IntPtr.Zero, data);
+        }
+
+        [Test]
+        [Category("Availability")]
+        [Explicit]
         [SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
         public void Free()
         {

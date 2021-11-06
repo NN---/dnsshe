@@ -5,13 +5,13 @@ using Microsoft.Win32.SafeHandles;
 namespace NN.Dnsshe.LibSsh.Native
 {
     [PublicAPI]
-    public class SafeSshBuffer : SafeHandleZeroOrMinusOneIsInvalid
+    public class SafeSshString : SafeHandleZeroOrMinusOneIsInvalid
     {
-        public SafeSshBuffer() : base(true) { }
+        public SafeSshString() : base(true) { }
 
         protected override bool ReleaseHandle()
         {
-            NativeMethods.ssh_buffer_free(handle);
+            NativeMethods.ssh_string_free(handle);
             return true;
         }
     }

@@ -8,7 +8,7 @@
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyFile Condition="'$(Production)' == 'True'">$(MSBuildThisFileDirectory)\build\dnsshe.snk</AssemblyOriginatorKeyFile>
 
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
 
     <Copyright>NN, 2021</Copyright>
     <RepositoryUrl>https://github.com/NN---/dnsshe</RepositoryUrl>

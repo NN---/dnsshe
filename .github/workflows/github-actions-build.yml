@@ -28,11 +28,8 @@ jobs:
         run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
       - name: Pack
         run: dotnet pack --configuration Release
-      - name: Upload nupkg
-        uses: kittaakos/upload-artifact-as-is@v0
+      - name: Prepare artifact
+        uses: actions/upload-artifact@v2
         with:
-          path: NN.Dnsshe/bin/Release/*.nupkg
-      - name: Upload snupkg
-        uses: kittaakos/upload-artifact-as-is@v0
-        with:
-          path: NN.Dnsshe/bin/Release/*.snupkg
+          path: NN.Dnsshe/bin/Release/*.*nupkg
+          name: NN.Dnsshe

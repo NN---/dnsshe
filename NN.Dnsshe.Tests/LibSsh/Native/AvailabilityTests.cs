@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 
 using NN.Dnsshe.LibSsh.Native;
 
@@ -26,6 +27,7 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
             errInt = NativeMethods.ssh_options_set(
                 ssh, ssh_options_e.SSH_OPTIONS_LOG_VERBOSITY, ssh_log_e.SSH_LOG_PROTOCOL);
             Assert.Zero(errInt);
+
             errInt = NativeMethods.ssh_options_set(ssh, ssh_options_e.SSH_OPTIONS_PORT, 2222);
             Assert.Zero(errInt);
 
@@ -35,11 +37,47 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
             var errAuth = NativeMethods.ssh_userauth_password(ssh, "signup", "signup23");
             Assert.AreEqual(ssh_auth_e.SSH_AUTH_SUCCESS, errAuth);
 
-            err = NativeMethods.ssh_get_server_publickey(ssh, out var srvPubkey);
+            err = NativeMethods.ssh_get_server_publickey(ssh, out var key);
+            using var keyDispose = key;
+            Assert.False(key.IsInvalid);
             Assert.AreEqual(ssh_error_e.SSH_OK, err);
+            
+            errInt = NativeMethods.ssh_get_publickey_hash(
+                key, ssh_publickey_hash_type.SSH_PUBLICKEY_HASH_SHA1, out var hash, out var hlen);
+            using var hashDispose = hash;
+            Assert.False(hash.IsInvalid);
+            Assert.NotZero(hlen);
+            Assert.Zero(errInt);
 
             NativeMethods.ssh_disconnect(ssh);
             NativeMethods.ssh_silent_disconnect(ssh);
+        }
+
+        [Test]
+        [Category("Availability")]
+        [Explicit]
+        public void Key()
+        {
+            using var key = NativeMethods.ssh_key_new();
+            Assert.False(key.IsInvalid);
+            Assert.NotNull(key);
+
+            Assert.AreEqual(ssh_keytypes_e.SSH_KEYTYPE_UNKNOWN, NativeMethods.ssh_key_type(key));
+            Assert.AreEqual(ssh_keytypes_e.SSH_KEYTYPE_UNKNOWN, NativeMethods.ssh_key_type_from_name(null));
+
+            Assert.True(NativeMethods.ssh_key_cmp(key, key, ssh_keycmp_e.SSH_KEY_CMP_PUBLIC));
+            Assert.False(NativeMethods.ssh_key_is_public(key));
+            Assert.False(NativeMethods.ssh_key_is_private(key));
+
+            var keyType = NativeMethods.ssh_key_type_to_char(ssh_keytypes_e.SSH_KEYTYPE_ED25519);
+            Assert.AreNotEqual(IntPtr.Zero, keyType);
+
+            var keyTypeName = Marshal.PtrToStringAnsi(keyType);
+            NAssert.NotNull(keyTypeName);
+            Assert.AreEqual(ssh_keytypes_e.SSH_KEYTYPE_ED25519, NativeMethods.ssh_key_type_from_name(keyTypeName));
+
+            var keyTypeUnknown = NativeMethods.ssh_key_type_to_char(ssh_keytypes_e.SSH_KEYTYPE_UNKNOWN);
+            Assert.AreEqual(IntPtr.Zero, keyTypeUnknown);
         }
 
         [Test]

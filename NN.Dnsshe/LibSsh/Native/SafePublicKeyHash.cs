@@ -14,6 +14,5 @@ namespace NN.Dnsshe.LibSsh.Native
             NativeMethods.ssh_clean_pubkey_hash(handle);
             return true;
         }
-
     }
 }

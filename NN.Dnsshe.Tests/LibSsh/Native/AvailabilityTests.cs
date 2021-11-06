@@ -29,7 +29,7 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
             using var keyDispose = key;
             Assert.False(key.IsInvalid);
             Assert.AreEqual(ssh_error_e.SSH_OK, err);
-            
+
             var errInt = NativeMethods.ssh_get_publickey_hash(
                 key, ssh_publickey_hash_type.SSH_PUBLICKEY_HASH_SHA1, out var hash, out var hlen);
             using var hashDispose = hash;
@@ -37,8 +37,8 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
             Assert.NotZero(hlen);
             Assert.Zero(errInt);
 
-            _ = NativeMethods.ssh_is_server_known(session);
-            _ = NativeMethods.ssh_session_is_known_server(session);
+            var knownSessionServer = NativeMethods.ssh_session_is_known_server(session);
+            Assert.AreEqual(ssh_known_hosts_e.SSH_KNOWN_HOSTS_OK, knownSessionServer);
 
             NativeMethods.ssh_disconnect(session);
             NativeMethods.ssh_silent_disconnect(session);
@@ -62,8 +62,13 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
             err = NativeMethods.ssh_channel_request_exec(channel, "\r");
             Assert.AreEqual(ssh_error_e.SSH_OK, err);
 
+            // ReSharper disable once SuggestVarOrType_BuiltInTypes
+            int written = NativeMethods.ssh_channel_write(channel, new byte[] { 0 }, 1u);
+
             var buf = new byte[1];
-            _ = NativeMethods.ssh_channel_read(channel, buf, (uint)buf.Length, false);
+
+            // ReSharper disable once SuggestVarOrType_BuiltInTypes
+            int read = NativeMethods.ssh_channel_read(channel, buf, (uint)buf.Length, false);
         }
 
         [Test]
@@ -126,7 +131,8 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
 
             var errInt = NativeMethods.ssh_options_set(session, ssh_options_e.SSH_OPTIONS_HOST, "ssh.blinkenshell.org");
             Assert.Zero(errInt);
-            errInt = NativeMethods.ssh_options_set(session, ssh_options_e.SSH_OPTIONS_LOG_VERBOSITY, ssh_log_e.SSH_LOG_PROTOCOL);
+            errInt = NativeMethods.ssh_options_set(
+                session, ssh_options_e.SSH_OPTIONS_LOG_VERBOSITY, ssh_log_e.SSH_LOG_PROTOCOL);
             Assert.Zero(errInt);
 
             errInt = NativeMethods.ssh_options_set(session, ssh_options_e.SSH_OPTIONS_PORT, 2222);

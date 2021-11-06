@@ -6,6 +6,12 @@ using NN.Dnsshe.LibSsh.Native;
 
 using NUnit.Framework;
 
+// ReSharper disable UnusedVariable
+// ReSharper disable SuggestVarOrType_BuiltInTypes
+
+// Use 'var'
+#pragma warning disable IDE0007
+
 // The method is obsolete
 #pragma warning disable CS0618
 
@@ -62,12 +68,10 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
             err = NativeMethods.ssh_channel_request_exec(channel, "\r");
             Assert.AreEqual(ssh_error_e.SSH_OK, err);
 
-            // ReSharper disable once SuggestVarOrType_BuiltInTypes
             int written = NativeMethods.ssh_channel_write(channel, new byte[] { 0 }, 1u);
 
             var buf = new byte[1];
 
-            // ReSharper disable once SuggestVarOrType_BuiltInTypes
             int read = NativeMethods.ssh_channel_read(channel, buf, (uint)buf.Length, false);
         }
 
@@ -96,6 +100,32 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
 
             var keyTypeUnknown = NativeMethods.ssh_key_type_to_char(ssh_keytypes_e.SSH_KEYTYPE_UNKNOWN);
             Assert.AreEqual(IntPtr.Zero, keyTypeUnknown);
+        }
+
+        [Test]
+        [Category("Availability")]
+        [Explicit]
+        public void Buffer()
+        {
+            using var buffer = NativeMethods.ssh_buffer_new();
+            var buf = new byte[16];
+            var errInt = NativeMethods.ssh_buffer_add_data(buffer, buf, (uint)buf.Length);
+            Assert.Zero(errInt);
+
+            var bufStart = NativeMethods.ssh_buffer_get(buffer);
+            Assert.AreNotEqual(IntPtr.Zero, bufStart);
+
+            var bufLen = NativeMethods.ssh_buffer_get_len(buffer);
+            Assert.AreEqual(buf.Length, bufLen);
+
+            bufLen = NativeMethods.ssh_buffer_get_data(buffer, buf, (uint)buf.Length);
+            Assert.AreEqual(buf.Length, bufLen);
+
+            errInt = NativeMethods.ssh_buffer_add_data(buffer, buf, (uint)buf.Length);
+            Assert.Zero(errInt);
+
+            errInt = NativeMethods.ssh_buffer_reinit(buffer);
+            Assert.Zero(errInt);
         }
 
         [Test]

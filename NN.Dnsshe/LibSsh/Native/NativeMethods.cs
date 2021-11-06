@@ -60,121 +60,121 @@ namespace NN.Dnsshe.LibSsh.Native
 #endif
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_blocking_flush(SafeSshHandle session, int timeout);
+        public static extern int ssh_blocking_flush(SafeSshSession session, int timeout);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_channel_accept_x11(IntPtr channel, int timeout_ms);
+        public static extern IntPtr ssh_channel_accept_x11(SafeSshChannel channel, int timeout_ms);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_change_pty_size(IntPtr channel, int cols, int rows);
+        public static extern int ssh_channel_change_pty_size(SafeSshChannel channel, int cols, int rows);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_close(IntPtr channel);
+        public static extern int ssh_channel_close(ssh_channel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_channel_free(IntPtr channel);
+        public static extern void ssh_channel_free(ssh_channel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_get_exit_status(IntPtr channel);
+        public static extern int ssh_channel_get_exit_status(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_channel_get_session(IntPtr channel);
+        public static extern SafeSshSession ssh_channel_get_session(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_is_closed(IntPtr channel);
+        public static extern int ssh_channel_is_closed(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_is_eof(IntPtr channel);
+        public static extern int ssh_channel_is_eof(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_is_open(IntPtr channel);
+        public static extern int ssh_channel_is_open(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_channel_new(SafeSshHandle session);
+        public static extern SafeSshChannel ssh_channel_new(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_open_auth_agent(IntPtr channel);
+        public static extern int ssh_channel_open_auth_agent(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_open_forward(IntPtr channel, string remotehost, int remoteport, string sourcehost, int localport);
+        public static extern int ssh_channel_open_forward(SafeSshChannel channel, string remotehost, int remoteport, string sourcehost, int localport);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_open_forward_unix(IntPtr channel, string remotepath, string sourcehost, int localport);
+        public static extern int ssh_channel_open_forward_unix(SafeSshChannel channel, string remotepath, string sourcehost, int localport);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_open_session(IntPtr channel);
+        public static extern ssh_error_e ssh_channel_open_session(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_open_x11(IntPtr channel, string orig_addr, int orig_port);
+        public static extern int ssh_channel_open_x11(SafeSshChannel channel, string orig_addr, int orig_port);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_poll(IntPtr channel, int is_stderr);
+        public static extern int ssh_channel_poll(SafeSshChannel channel, bool is_stderr);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_poll_timeout(IntPtr channel, int timeout, int is_stderr);
+        public static extern int ssh_channel_poll_timeout(SafeSshChannel channel, int timeout, bool is_stderr);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_read(IntPtr channel, IntPtr dest, uint count, int is_stderr);
+        public static extern int ssh_channel_read(SafeSshChannel channel, byte[] dest, uint count, bool is_stderr);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_read_timeout(IntPtr channel, IntPtr dest, uint count, int is_stderr, int timeout_ms);
+        public static extern int ssh_channel_read_timeout(SafeSshChannel channel, byte[] dest, uint count, bool is_stderr, int timeout_ms);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_read_nonblocking(IntPtr channel, IntPtr dest, uint count, int is_stderr);
+        public static extern int ssh_channel_read_nonblocking(SafeSshChannel channel, byte[] dest, uint count, bool is_stderr);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_env(IntPtr channel, string name, string value);
+        public static extern ssh_error_e ssh_channel_request_env(SafeSshChannel channel, string name, string value);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_exec(IntPtr channel, string cmd);
+        public static extern ssh_error_e ssh_channel_request_exec(SafeSshChannel channel, string cmd);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_pty(IntPtr channel);
+        public static extern ssh_error_e ssh_channel_request_pty(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_pty_size(IntPtr channel, string term, int cols, int rows);
+        public static extern ssh_error_e ssh_channel_request_pty_size(SafeSshChannel channel, string term, int cols, int rows);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_shell(IntPtr channel);
+        public static extern ssh_error_e ssh_channel_request_shell(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_send_signal(IntPtr channel, string signum);
+        public static extern ssh_error_e ssh_channel_request_send_signal(SafeSshChannel channel, string signum);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_send_break(IntPtr channel, uint length);
+        public static extern ssh_error_e ssh_channel_request_send_break(SafeSshChannel channel, uint length);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_sftp(IntPtr channel);
+        public static extern ssh_error_e ssh_channel_request_sftp(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_subsystem(IntPtr channel, string subsystem);
+        public static extern ssh_error_e ssh_channel_request_subsystem(SafeSshChannel channel, string subsystem);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_x11(IntPtr channel, int single_connection, string protocol, string cookie, int screen_number);
+        public static extern ssh_error_e ssh_channel_request_x11(SafeSshChannel channel, int single_connection, string protocol, string cookie, int screen_number);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_request_auth_agent(IntPtr channel);
+        public static extern ssh_error_e ssh_channel_request_auth_agent(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_send_eof(IntPtr channel);
+        public static extern int ssh_channel_send_eof(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int ssh_channel_select(ref IntPtr readchans, ref IntPtr writechans, ref IntPtr exceptchans, ref timeval timeout);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_channel_set_blocking(IntPtr channel, int blocking);
+        public static extern void ssh_channel_set_blocking(SafeSshChannel channel, int blocking);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_channel_set_counter(IntPtr channel, ref ssh_counter_struct counter);
+        public static extern void ssh_channel_set_counter(SafeSshChannel channel, ref ssh_counter_struct counter);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_write(IntPtr channel, IntPtr data, uint len);
+        public static extern int ssh_channel_write(SafeSshChannel channel, byte[] data, uint len);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_write_stderr(IntPtr channel, IntPtr data, uint len);
+        public static extern int ssh_channel_write_stderr(SafeSshChannel channel, byte[] data, uint len);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern uint ssh_channel_window_size(IntPtr channel);
+        public static extern uint ssh_channel_window_size(SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern IntPtr ssh_basename(string path);
@@ -183,10 +183,10 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern void ssh_clean_pubkey_hash(in IntPtr hash);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_error_e ssh_connect(SafeSshHandle session);
+        public static extern ssh_error_e ssh_connect(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_connector_new(SafeSshHandle session);
+        public static extern IntPtr ssh_connector_new(SafeSshSession session);
 
 
 
@@ -196,12 +196,12 @@ namespace NN.Dnsshe.LibSsh.Native
 
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_connector_set_in_channel(IntPtr connector, IntPtr channel, ssh_connector_flags_e flags);
+        public static extern int ssh_connector_set_in_channel(IntPtr connector, SafeSshChannel channel, ssh_connector_flags_e flags);
 
 
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_connector_set_out_channel(IntPtr connector, IntPtr channel, ssh_connector_flags_e flags);
+        public static extern int ssh_connector_set_out_channel(IntPtr connector, SafeSshChannel channel, ssh_connector_flags_e flags);
 
 
 
@@ -217,7 +217,7 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern IntPtr ssh_copyright();
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_disconnect(SafeSshHandle session);
+        public static extern void ssh_disconnect(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern IntPtr ssh_dirname(string path);
@@ -226,40 +226,40 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_finalize();
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_channel_accept_forward(SafeSshHandle session, int timeout_ms, ref int destination_port);
+        public static extern IntPtr ssh_channel_accept_forward(SafeSshSession session, int timeout_ms, ref int destination_port);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_cancel_forward(SafeSshHandle session, string address, int port);
+        public static extern int ssh_channel_cancel_forward(SafeSshSession session, string address, int port);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_listen_forward(SafeSshHandle session, string address, int port, ref int bound_port);
+        public static extern int ssh_channel_listen_forward(SafeSshSession session, string address, int port, ref int bound_port);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern void ssh_free(ssh_session session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_disconnect_message(SafeSshHandle session);
+        public static extern IntPtr ssh_get_disconnect_message(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_error(IntPtr error);
+        public static extern string ssh_get_error(IntPtr error);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int ssh_get_error_code(IntPtr error);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern socket_t ssh_get_fd(SafeSshHandle session);
+        public static extern socket_t ssh_get_fd(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern IntPtr ssh_get_hexa(string what, nuint len);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_issue_banner(SafeSshHandle session);
+        public static extern IntPtr ssh_get_issue_banner(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_get_openssh_version(SafeSshHandle session);
+        public static extern int ssh_get_openssh_version(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_error_e ssh_get_server_publickey(SafeSshHandle session, out SafeSshKey key);
+        public static extern ssh_error_e ssh_get_server_publickey(SafeSshSession session, out SafeSshKey key);
 
 
 
@@ -267,28 +267,33 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_get_publickey_hash(SafeSshKey key, ssh_publickey_hash_type type, out SafePublicKeyHash hash, out nuint hlen);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_get_pubkey_hash(SafeSshHandle session, ref IntPtr hash);
+        [Obsolete("Use " + nameof(ssh_get_publickey_hash))]
+        public static extern int ssh_get_pubkey_hash(SafeSshSession session, ref IntPtr hash);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_forward_accept(SafeSshHandle session, int timeout_ms);
+        public static extern IntPtr ssh_forward_accept(SafeSshSession session, int timeout_ms);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_forward_cancel(SafeSshHandle session, string address, int port);
+        public static extern int ssh_forward_cancel(SafeSshSession session, string address, int port);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_forward_listen(SafeSshHandle session, string address, int port, ref int bound_port);
+        public static extern int ssh_forward_listen(SafeSshSession session, string address, int port, ref int bound_port);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_get_publickey(SafeSshHandle session, ref SafeSshKey key);
+        [Obsolete("Use " + nameof(ssh_get_server_publickey))]
+        public static extern int ssh_get_publickey(SafeSshSession session, ref SafeSshKey key);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_write_knownhost(SafeSshHandle session);
+        [Obsolete("Use " + nameof(ssh_session_update_known_hosts))]
+        public static extern int ssh_write_knownhost(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_dump_knownhost(SafeSshHandle session);
+        [Obsolete("Use " + nameof(ssh_session_export_known_hosts_entry))]   
+        public static extern IntPtr ssh_dump_knownhost(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_is_server_known(SafeSshHandle session);
+        [Obsolete("Use " + nameof(ssh_session_is_known_server))]
+        public static extern int ssh_is_server_known(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern void ssh_print_hexa(string descr, string what, nuint len);
@@ -297,22 +302,22 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_get_random(IntPtr where, int len, int strong);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_get_version(SafeSshHandle session);
+        public static extern int ssh_get_version(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_get_status(SafeSshHandle session);
+        public static extern int ssh_get_status(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_get_poll_flags(SafeSshHandle session);
+        public static extern int ssh_get_poll_flags(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int ssh_init();
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_is_blocking(SafeSshHandle session);
+        public static extern int ssh_is_blocking(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_is_connected(SafeSshHandle session);
+        public static extern int ssh_is_connected(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern void ssh_knownhosts_entry_free(ref ssh_knownhosts_entry entry);
@@ -321,19 +326,19 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_known_hosts_parse_line(string host, string line, ref IntPtr entry);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_known_hosts_e ssh_session_has_known_hosts_entry(SafeSshHandle session);
+        public static extern ssh_known_hosts_e ssh_session_has_known_hosts_entry(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_session_export_known_hosts_entry(SafeSshHandle session, ref IntPtr pentry_string);
+        public static extern int ssh_session_export_known_hosts_entry(SafeSshSession session, ref IntPtr pentry_string);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_session_update_known_hosts(SafeSshHandle session);
+        public static extern int ssh_session_update_known_hosts(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_known_hosts_e ssh_session_get_known_hosts_entry(SafeSshHandle session, ref IntPtr pentry);
+        public static extern ssh_known_hosts_e ssh_session_get_known_hosts_entry(SafeSshSession session, ref IntPtr pentry);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_known_hosts_e ssh_session_is_known_server(SafeSshHandle session);
+        public static extern ssh_known_hosts_e ssh_session_is_known_server(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int ssh_set_log_level(int level);
@@ -345,7 +350,7 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern IntPtr ssh_get_log_userdata();
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_set_log_userdata(IntPtr data);
+        public static extern int ssh_set_log_userdata(byte[] data);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern IntPtr ssh_message_channel_request_open_reply_accept(IntPtr msg);
@@ -362,7 +367,7 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern void ssh_message_free(IntPtr msg);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_message_get(SafeSshHandle session);
+        public static extern IntPtr ssh_message_get(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int ssh_message_subtype(IntPtr msg);
@@ -374,32 +379,32 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_mkdir(string pathname, int mode);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern SafeSshHandle ssh_new();
+        public static extern SafeSshSession ssh_new();
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int ssh_options_copy(IntPtr src, ref IntPtr dest);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_options_parse_config(SafeSshHandle session, string filename);
+        public static extern int ssh_options_parse_config(SafeSshSession session, string filename);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_options_set(SafeSshHandle session, ssh_options_e type, nint value);
+        public static extern int ssh_options_set(SafeSshSession session, ssh_options_e type, nint value);
 
         // Overloads
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_options_set(SafeSshHandle session, ssh_options_e type, string value);
+        public static extern int ssh_options_set(SafeSshSession session, ssh_options_e type, string value);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_options_set(SafeSshHandle session, ssh_options_e type, in ssh_log_e value);
+        public static extern int ssh_options_set(SafeSshSession session, ssh_options_e type, in ssh_log_e value);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_options_set(SafeSshHandle session, ssh_options_e type, in int value);
+        public static extern int ssh_options_set(SafeSshSession session, ssh_options_e type, in int value);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_options_get(SafeSshHandle session, ssh_options_e type, ref nint value);
+        public static extern int ssh_options_get(SafeSshSession session, ssh_options_e type, ref nint value);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_options_get_port(SafeSshHandle session, out uint port_target);
+        public static extern int ssh_options_get_port(SafeSshSession session, out uint port_target);
     
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int ssh_pcap_file_close(IntPtr pcap);
@@ -500,15 +505,15 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern void ssh_print_hash(ssh_publickey_hash_type type, IntPtr hash, nuint len);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_send_ignore(SafeSshHandle session, string data);
+        public static extern int ssh_send_ignore(SafeSshSession session, string data);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_send_debug(SafeSshHandle session, string message, int always_display);
+        public static extern int ssh_send_debug(SafeSshSession session, string message, int always_display);
 
 
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_gssapi_set_creds(SafeSshHandle session, IntPtr creds);
+        public static extern void ssh_gssapi_set_creds(SafeSshSession session, IntPtr creds);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int ssh_scp_accept_request(IntPtr scp);
@@ -529,7 +534,7 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_scp_leave_directory(IntPtr scp);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_scp_new(SafeSshHandle session, int mode, string location);
+        public static extern IntPtr ssh_scp_new(SafeSshSession session, int mode, string location);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int ssh_scp_pull_request(IntPtr scp);
@@ -565,96 +570,96 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_scp_write(IntPtr scp, IntPtr buffer, nuint len);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_select(ref IntPtr channels, ref IntPtr outchannels, socket_t maxfd, ref fd_set readfds, ref timeval timeout);
+        public static extern int ssh_select(ref SafeSshChannel channels, ref IntPtr outchannels, socket_t maxfd, ref fd_set readfds, ref timeval timeout);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_service_request(SafeSshHandle session, string service);
+        public static extern int ssh_service_request(SafeSshSession session, string service);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_set_agent_channel(SafeSshHandle session, IntPtr channel);
+        public static extern int ssh_set_agent_channel(SafeSshSession session, SafeSshChannel channel);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_set_agent_socket(SafeSshHandle session, socket_t fd);
+        public static extern int ssh_set_agent_socket(SafeSshSession session, socket_t fd);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_set_blocking(SafeSshHandle session, int blocking);
+        public static extern void ssh_set_blocking(SafeSshSession session, int blocking);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_set_counters(SafeSshHandle session, ref ssh_counter_struct scounter, ref ssh_counter_struct rcounter);
+        public static extern void ssh_set_counters(SafeSshSession session, ref ssh_counter_struct scounter, ref ssh_counter_struct rcounter);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_set_fd_except(SafeSshHandle session);
+        public static extern void ssh_set_fd_except(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_set_fd_toread(SafeSshHandle session);
+        public static extern void ssh_set_fd_toread(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_set_fd_towrite(SafeSshHandle session);
+        public static extern void ssh_set_fd_towrite(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_silent_disconnect(SafeSshHandle session);
+        public static extern void ssh_silent_disconnect(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_set_pcap_file(SafeSshHandle session, IntPtr pcapfile);
-
-
-
-        [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_auth_e ssh_userauth_none(SafeSshHandle session, string username);
+        public static extern int ssh_set_pcap_file(SafeSshSession session, IntPtr pcapfile);
 
 
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_auth_e ssh_userauth_list(SafeSshHandle session, string username);
+        public static extern ssh_auth_e ssh_userauth_none(SafeSshSession session, string username);
 
 
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_auth_e ssh_userauth_try_publickey(SafeSshHandle session, string username, IntPtr pubkey);
+        public static extern ssh_auth_e ssh_userauth_list(SafeSshSession session, string username);
 
 
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_auth_e ssh_userauth_publickey(SafeSshHandle session, string username, IntPtr privkey);
+        public static extern ssh_auth_e ssh_userauth_try_publickey(SafeSshSession session, string username, IntPtr pubkey);
 
 
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_auth_e ssh_userauth_publickey_auto(SafeSshHandle session, string username, string passphrase);
+        public static extern ssh_auth_e ssh_userauth_publickey(SafeSshSession session, string username, IntPtr privkey);
 
 
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_auth_e ssh_userauth_password(SafeSshHandle session, string username, string password);
+        public static extern ssh_auth_e ssh_userauth_publickey_auto(SafeSshSession session, string username, string passphrase);
 
 
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_userauth_kbdint(SafeSshHandle session, string user, string submethods);
+        public static extern ssh_auth_e ssh_userauth_password(SafeSshSession session, string username, string password);
+
+
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_userauth_kbdint_getinstruction(SafeSshHandle session);
+        public static extern int ssh_userauth_kbdint(SafeSshSession session, string user, string submethods);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_userauth_kbdint_getname(SafeSshHandle session);
+        public static extern IntPtr ssh_userauth_kbdint_getinstruction(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_userauth_kbdint_getnprompts(SafeSshHandle session);
+        public static extern IntPtr ssh_userauth_kbdint_getname(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_userauth_kbdint_getprompt(SafeSshHandle session, uint i, IntPtr echo);
+        public static extern int ssh_userauth_kbdint_getnprompts(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_userauth_kbdint_getnanswers(SafeSshHandle session);
+        public static extern IntPtr ssh_userauth_kbdint_getprompt(SafeSshSession session, uint i, IntPtr echo);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_userauth_kbdint_getanswer(SafeSshHandle session, uint i);
+        public static extern int ssh_userauth_kbdint_getnanswers(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_userauth_kbdint_setanswer(SafeSshHandle session, uint i, string answer);
+        public static extern IntPtr ssh_userauth_kbdint_getanswer(SafeSshSession session, uint i);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_userauth_gssapi(SafeSshHandle session);
+        public static extern int ssh_userauth_kbdint_setanswer(SafeSshSession session, uint i, string answer);
+
+        [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern int ssh_userauth_gssapi(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern IntPtr ssh_version(int req_version);
@@ -669,7 +674,7 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern IntPtr ssh_string_data(IntPtr str);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_string_fill(IntPtr str, IntPtr data, nuint len);
+        public static extern int ssh_string_fill(IntPtr str, byte[] data, nuint len);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern void ssh_string_free(IntPtr str);
@@ -705,7 +710,7 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_event_add_fd(IntPtr @event, socket_t fd, short events, ssh_event_callback cb, IntPtr userdata);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_event_add_session(IntPtr @event, SafeSshHandle session);
+        public static extern int ssh_event_add_session(IntPtr @event, SafeSshSession session);
 
 
 
@@ -719,7 +724,7 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_event_remove_fd(IntPtr @event, socket_t fd);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_event_remove_session(IntPtr @event, SafeSshHandle session);
+        public static extern int ssh_event_remove_session(IntPtr @event, SafeSshSession session);
 
 
 
@@ -730,25 +735,25 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern void ssh_event_free(IntPtr @event);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_clientbanner(SafeSshHandle session);
+        public static extern IntPtr ssh_get_clientbanner(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_serverbanner(SafeSshHandle session);
+        public static extern IntPtr ssh_get_serverbanner(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_kex_algo(SafeSshHandle session);
+        public static extern IntPtr ssh_get_kex_algo(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_cipher_in(SafeSshHandle session);
+        public static extern IntPtr ssh_get_cipher_in(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_cipher_out(SafeSshHandle session);
+        public static extern IntPtr ssh_get_cipher_out(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_hmac_in(SafeSshHandle session);
+        public static extern IntPtr ssh_get_hmac_in(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_get_hmac_out(SafeSshHandle session);
+        public static extern IntPtr ssh_get_hmac_out(SafeSshSession session);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern IntPtr ssh_buffer_new();
@@ -760,10 +765,10 @@ namespace NN.Dnsshe.LibSsh.Native
         public static extern int ssh_buffer_reinit(IntPtr buffer);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_buffer_add_data(IntPtr buffer, IntPtr data, uint len);
+        public static extern int ssh_buffer_add_data(IntPtr buffer, byte[] data, uint len);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern uint ssh_buffer_get_data(IntPtr buffer, IntPtr data, uint requestedlen);
+        public static extern uint ssh_buffer_get_data(IntPtr buffer, byte[] data, uint requestedlen);
 
         [DllImport(LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern IntPtr ssh_buffer_get(IntPtr buffer);

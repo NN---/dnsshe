@@ -7,11 +7,11 @@ using Microsoft.Win32.SafeHandles;
 namespace NN.Dnsshe.LibSsh.Native
 {
     [PublicAPI]
-    public sealed class SafeSshHandle : SafeHandleZeroOrMinusOneIsInvalid
+    public sealed class SafeSshSession : SafeHandleZeroOrMinusOneIsInvalid
     {
-        public SafeSshHandle() : base(true) { }
+        public SafeSshSession() : base(true) { }
 
-        public SafeSshHandle(IntPtr handle, bool ownsHandle):
+        public SafeSshSession(IntPtr handle, bool ownsHandle):
             base(ownsHandle)
         {
             SetHandle(handle);
@@ -24,7 +24,7 @@ namespace NN.Dnsshe.LibSsh.Native
         }
 
         // ReSharper disable once InconsistentNaming
-        public static readonly SafeSshHandle SSH_INVALID_SOCKET =
+        public static readonly SafeSshSession SSH_INVALID_SOCKET =
             new((IntPtr)(-1), true);
     }
 }

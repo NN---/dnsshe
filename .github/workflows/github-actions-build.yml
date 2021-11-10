@@ -5,6 +5,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
     strategy:
       matrix:
         dotnet-version: [ '5.0.x' ]
@@ -25,7 +28,7 @@ jobs:
       - name: Remove strong name
         run: rm build/dnsshe.snk
       - name: Test with dotnet
-        run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+        run: dotnet test --configuration Release --no-restore --no-build --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
       - name: Pack
         run: dotnet pack --configuration Release
       - name: Prepare artifact

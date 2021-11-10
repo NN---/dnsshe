@@ -239,6 +239,9 @@ dotnet_diagnostic.CA1401.severity = none
 # Remove the underscores from member name
 dotnet_diagnostic.CA1707.severity = none
 
+# Do not prefix enum values with the name of the enum type
+dotnet_diagnostic.CA1712.severity = none
+
 # struct should override Equals, operator==, operator!=
 dotnet_diagnostic.CA1815.severity = none
 

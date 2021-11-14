@@ -10,7 +10,7 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
     strategy:
       matrix:
-        dotnet-version: [ '5.0.x' ]
+        dotnet-version: [ '6.0.x' ]
 
     steps:
       - uses: actions/checkout@v2
@@ -19,6 +19,8 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
           include-prerelease: true
+      - name: Install libssh
+        run: sudo apt-get install -y libssh-dev
       - name: Restore
         run: dotnet restore
       - name: Prepare strong name
@@ -28,7 +30,7 @@ jobs:
       - name: Remove strong name
         run: rm build/dnsshe.snk
       - name: Test with dotnet
-        run: dotnet test --configuration Release --no-restore --no-build --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+        run: dotnet test --configuration Release --no-restore --no-build --results-directory "TestResults-${{ matrix.dotnet-version }}"
       - name: Pack
         run: dotnet pack --configuration Release
       - name: Prepare artifact

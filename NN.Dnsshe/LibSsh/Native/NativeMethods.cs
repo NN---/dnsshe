@@ -48,8 +48,10 @@ namespace NN.Dnsshe.LibSsh.Native
     {
 #if TARGET_WINDOWS
         public const string LibSshNative = "ssh";
-#else
-        public const string LibSshNative = "libssh";
+#elif TARGET_LINUX
+        public const string LibSshNative = "libssh.so";
+#elif TARGET_MACOS
+        public const string LibSshNative = "libssh.dylib";
 #endif
 
         [DllImport(
@@ -58,15 +60,15 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern IntPtr ssh_channel_accept_x11(SafeSshChannel channel, int timeout_ms);
+        public static extern SafeSshChannel ssh_channel_accept_x11(SafeSshChannel channel, int timeout_ms);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_change_pty_size(SafeSshChannel channel, int cols, int rows);
+        public static extern ssh_error_e ssh_channel_change_pty_size(SafeSshChannel channel, int cols, int rows);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_close(ssh_channel channel);
+        public static extern ssh_error_e ssh_channel_close(SafeSshChannel channel);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
@@ -98,11 +100,11 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_open_auth_agent(SafeSshChannel channel);
+        public static extern ssh_error_e ssh_channel_open_auth_agent(SafeSshChannel channel);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_open_forward(
+        public static extern ssh_error_e ssh_channel_open_forward(
             SafeSshChannel channel,
             string remotehost,
             int remoteport,
@@ -111,7 +113,7 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_open_forward_unix(
+        public static extern ssh_error_e ssh_channel_open_forward_unix(
             SafeSshChannel channel,
             string remotepath,
             string sourcehost,
@@ -123,7 +125,7 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_open_x11(SafeSshChannel channel, string orig_addr, int orig_port);
+        public static extern ssh_error_e ssh_channel_open_x11(SafeSshChannel channel, string orig_addr, int orig_port);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
@@ -209,15 +211,15 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_send_eof(SafeSshChannel channel);
+        public static extern ssh_error_e ssh_channel_send_eof(SafeSshChannel channel);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern int ssh_channel_select(
-            ref IntPtr readchans,
-            ref IntPtr writechans,
-            ref IntPtr exceptchans,
-            ref timeval timeout);
+        public static extern ssh_error_e ssh_channel_select(
+            SafeSshChannel readchans,
+            SafeSshChannel writechans,
+            SafeSshChannel exceptchans,
+            in timeval timeout);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
@@ -225,7 +227,7 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_channel_set_counter(SafeSshChannel channel, ref ssh_counter_struct counter);
+        public static extern void ssh_channel_set_counter(SafeSshChannel channel, in ssh_counter_struct counter);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
@@ -619,12 +621,21 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern ssh_error_e ssh_pki_import_privkey_base64(
+            SafeSshChar b64_key,
+            string? passphrase,
+            ssh_auth_callback auth_fn,
+            IntPtr auth_data,
+            out SafeSshKey pkey);
+
+        [DllImport(
+            LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern ssh_error_e ssh_pki_export_privkey_base64(
             SafeSshKey privkey,
             string? passphrase,
             ssh_auth_callback auth_fn,
             IntPtr auth_data,
-            ref IntPtr b64_key);
+            out SafeSshChar b64_key);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
@@ -654,11 +665,19 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern ssh_error_e ssh_pki_import_pubkey_base64(SafeSshChar b64_key, ssh_keytypes_e type, out SafeSshKey pkey);
+
+        [DllImport(
+            LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern ssh_error_e ssh_pki_import_pubkey_file(string filename, out SafeSshKey pkey);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern ssh_error_e ssh_pki_import_cert_base64(byte[] b64_cert, ssh_keytypes_e type, out SafeSshKey pkey);
+
+        [DllImport(
+            LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern ssh_error_e ssh_pki_import_cert_base64(SafeSshChar b64_cert, ssh_keytypes_e type, out SafeSshKey pkey);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
@@ -670,7 +689,7 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern ssh_error_e ssh_pki_export_pubkey_base64(SafeSshKey key, ref IntPtr b64_key);
+        public static extern ssh_error_e ssh_pki_export_pubkey_base64(SafeSshKey key, out SafeSshChar b64_key);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
@@ -801,8 +820,8 @@ namespace NN.Dnsshe.LibSsh.Native
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern void ssh_set_counters(
             SafeSshSession session,
-            ref ssh_counter_struct scounter,
-            ref ssh_counter_struct rcounter);
+            in ssh_counter_struct scounter,
+            in ssh_counter_struct rcounter);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]

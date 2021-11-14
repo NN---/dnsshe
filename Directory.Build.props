@@ -43,14 +43,23 @@
 
     <RuntimeIdentifierWindows>False</RuntimeIdentifierWindows>
     <RuntimeIdentifierWindows Condition="$(RuntimeIdentifier.StartsWith('win'))">True</RuntimeIdentifierWindows>
-    <RuntimeIdentifierUnix>False</RuntimeIdentifierUnix>
-    <RuntimeIdentifierUnix Condition="$(HasRuntimeIdentifier) And !$(RuntimeIdentifierWindows)">True</RuntimeIdentifierUnix>
+    <RuntimeIdentifierLinux>False</RuntimeIdentifierLinux>
+    <RuntimeIdentifierLinux Condition="$(RuntimeIdentifier.StartsWith('linux'))">True</RuntimeIdentifierLinux>
+    <RuntimeIdentifierOSX>False</RuntimeIdentifierOSX>
+    <RuntimeIdentifierOSX Condition="$(RuntimeIdentifier.StartsWith('osx'))">True</RuntimeIdentifierOSX>
 
     <BuildWindows>False</BuildWindows>
     <BuildWindows Condition="$([MSBuild]::IsOsPlatform('Windows'))">True</BuildWindows>
 
+    <BuildLinux>False</BuildLinux>
+    <BuildLinux Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' ">True</BuildLinux>
+
+    <BuildOSX>False</BuildOSX>
+    <BuildOSX Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' ">True</BuildOSX>
+
     <DefineConstants Condition="$(RuntimeIdentifierWindows) Or (!$(HasRuntimeIdentifier) And $(BuildWindows))">$(DefineConstants);TARGET_WINDOWS</DefineConstants>
-    <DefineConstants Condition="$(RuntimeIdentifierUnix) Or (!$(HasRuntimeIdentifier) And !$(BuildWindows))">$(DefineConstants);TARGET_UNIX</DefineConstants>
+    <DefineConstants Condition="$(RuntimeIdentifierLinux) Or (!$(HasRuntimeIdentifier) And $(BuildLinux))">$(DefineConstants);TARGET_LINUX</DefineConstants>
+    <DefineConstants Condition="$(RuntimeIdentifierOSX) Or (!$(HasRuntimeIdentifier) And $(BuildOSX))">$(DefineConstants);TARGET_OSX</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

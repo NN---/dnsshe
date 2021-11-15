@@ -11,6 +11,7 @@ using NUnit.Framework;
 // ReSharper disable SuggestVarOrType_SimpleTypes
 // ReSharper disable SuggestVarOrType_BuiltInTypes
 // Using explicit types on purpose
+// ReSharper disable NotAccessedVariable
 
 // Use 'var'
 #pragma warning disable IDE0007
@@ -21,16 +22,19 @@ using NUnit.Framework;
 // Unreachable code detected
 #pragma warning disable CS0162
 
+// Unnecessary assignment of a value
+#pragma warning disable IDE0059
+
 namespace NN.Dnsshe.Tests.LibSsh.Native
 {
     /// <summary>
     /// The purpose of this test is just to make sure the methods signature is correct.
     /// </summary>
     [Parallelizable(ParallelScope.All)]
+    [Category("Availability")]
     public class AvailabilityTests
     {
         [Test]
-        [Category("Availability")]
         [Category("System")]
         public void SshConnect()
         {
@@ -63,7 +67,6 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
         [Category("System")]
         public void SshSession()
         {
@@ -74,7 +77,6 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
         [Category("System")]
         public void SshChannel()
         {
@@ -109,7 +111,6 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
         public void SshChannelMethods()
         {
             Assert.Pass();
@@ -160,7 +161,6 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
         public void Key()
         {
             using SafeSshKey key = NativeMethods.ssh_key_new();
@@ -186,7 +186,6 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
         public void Buffer()
         {
             using SafeSshBuffer buffer = NativeMethods.ssh_buffer_new();
@@ -211,7 +210,6 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
         public void SshString()
         {
             nuint size = 16;
@@ -236,7 +234,6 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
         public void Authentication()
         {
             using var session = new SafeSshSession();
@@ -249,6 +246,20 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
             errAuth = NativeMethods.ssh_userauth_publickey_auto(session, null, null);
             errAuth = NativeMethods.ssh_userauth_publickey_auto(session, "u", "p");
 
+            Assert.Pass();
+            return;
+
+            errAuth = NativeMethods.ssh_userauth_password(session, "u", "p");
+            errAuth = NativeMethods.ssh_userauth_kbdint(session, "u", null);
+            IntPtr instruction = NativeMethods.ssh_userauth_kbdint_getinstruction(session);
+            IntPtr name = NativeMethods.ssh_userauth_kbdint_getname(session);
+            int nprompts = NativeMethods.ssh_userauth_kbdint_getnprompts(session);
+            IntPtr prompts = NativeMethods.ssh_userauth_kbdint_getprompt(session, 0, IntPtr.Zero);
+            int answers = NativeMethods.ssh_userauth_kbdint_getnanswers(session);
+            IntPtr answer = NativeMethods.ssh_userauth_kbdint_getanswer(session, 0);
+            int setAnswer = NativeMethods.ssh_userauth_kbdint_setanswer(session, 0, "a");
+            errAuth = NativeMethods.ssh_userauth_gssapi(session);
+
             if (!OperatingSystem.IsWindows())
             {
                 errAuth = NativeMethods.ssh_userauth_agent(session, null);
@@ -257,7 +268,6 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
         public void AuthenticationMethod()
         {
             Assert.Pass();
@@ -271,7 +281,6 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
         public void PublicPrivateKey()
         {
             ssh_error_e err = NativeMethods.ssh_pki_generate(ssh_keytypes_e.SSH_KEYTYPE_UNKNOWN, 0, out SafeSshKey genKey);
@@ -359,7 +368,31 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
         }
 
         [Test]
-        [Category("Availability")]
+        public void Helpers()
+        {
+            return;
+
+            int pass = NativeMethods.ssh_getpass("abc", new char[16], 16, true, true);
+        }
+
+
+        [Test]
+        public void SessionGetters()
+        {
+            var session = Connect();
+
+            int version = NativeMethods.ssh_get_version(session);
+            version = NativeMethods.ssh_get_openssh_version(session);
+
+            IntPtr i = NativeMethods.ssh_get_clientbanner(session);
+            i = NativeMethods.ssh_get_serverbanner(session);
+            i = NativeMethods.ssh_get_kex_algo(session);
+            i = NativeMethods.ssh_get_cipher_out(session);
+            i = NativeMethods.ssh_get_hmac_in(session);
+            i = NativeMethods.ssh_get_hmac_out(session);
+        }
+
+        [Test]
         public void Free()
         {
             Assert.Pass();
@@ -398,6 +431,7 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
 
             ssh_auth_e errAuth = NativeMethods.ssh_userauth_password(session, "myfirstsshserver", "CxS7TDxti5g");
             Assert.AreEqual(ssh_auth_e.SSH_AUTH_SUCCESS, errAuth);
+
             return session;
         }
     }

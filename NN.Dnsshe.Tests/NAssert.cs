@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 using NUnit.Framework;
+// ReSharper disable UnusedMember.Global
 
 // Parameter must have a non-null value when exiting.
 #pragma warning disable CS8777

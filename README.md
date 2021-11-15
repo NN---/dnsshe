@@ -29,8 +29,24 @@ This library solves this problem by wrapping working and maintained SSH implemen
 
 # Where are the native binaries ?
 
-Currently the native binaries are not provided in this repository.  
-You can download them from the native project page.
+The native binaries are not provided in this repository.  
+Check download instructions on the relevant project page.
+
+## Windows
+
+`vcpkg install libssh`  
+`vcpkg install libssh2`
+
+## Ubuntu
+
+`sudo apt install libssh-dev`  
+`sudo apt install libssh2-1`
+
+## macOS
+
+`brew install libssh`  
+`brew install libssh2`  
+
 
 # Project organization
 

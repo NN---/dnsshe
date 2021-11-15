@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 using JetBrains.Annotations;
 
@@ -861,8 +862,8 @@ namespace NN.Dnsshe.LibSsh.Native
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern ssh_auth_e ssh_userauth_publickey(SafeSshSession session, string? username, SafeSshKey privkey);
-
-
+        
+        [UnsupportedOSPlatform("Windows")]
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern ssh_auth_e ssh_userauth_agent(SafeSshSession session, string? username);

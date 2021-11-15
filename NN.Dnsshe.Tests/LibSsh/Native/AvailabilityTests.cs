@@ -249,7 +249,7 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
             errAuth = NativeMethods.ssh_userauth_publickey_auto(session, null, null);
             errAuth = NativeMethods.ssh_userauth_publickey_auto(session, "u", "p");
 
-            if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+            if (!OperatingSystem.IsWindows())
             {
                 errAuth = NativeMethods.ssh_userauth_agent(session, null);
                 errAuth = NativeMethods.ssh_userauth_agent(session, "a");

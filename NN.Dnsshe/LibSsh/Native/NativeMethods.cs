@@ -25,6 +25,7 @@ namespace NN.Dnsshe.LibSsh.Native
     using ssh_connector = IntPtr;
     using ssh_gssapi_creds = IntPtr;
     using socket_t = IntPtr;
+    using ssh_hash = IntPtr;
 
     /// <summary>
     /// <a href="https://api.libssh.org/stable/structssh__counter__struct.html">ssh_counter_struct</a>
@@ -248,7 +249,7 @@ namespace NN.Dnsshe.LibSsh.Native
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        public static extern void ssh_clean_pubkey_hash(SafePublicKeyHash hash);
+        public static extern void ssh_clean_pubkey_hash(ssh_hash hash);
 
         [DllImport(
             LibSshNative, ExactSpelling = true, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]

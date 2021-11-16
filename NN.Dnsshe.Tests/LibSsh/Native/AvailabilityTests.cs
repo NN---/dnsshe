@@ -410,7 +410,7 @@ namespace NN.Dnsshe.Tests.LibSsh.Native
             NativeMethods.ssh_scp_free(IntPtr.Zero);
             NativeMethods.ssh_key_free(IntPtr.Zero);
             NativeMethods.ssh_string_free(IntPtr.Zero);
-            NativeMethods.ssh_clean_pubkey_hash(new SafePublicKeyHash());
+            NativeMethods.ssh_clean_pubkey_hash(IntPtr.Zero);
         }
 
         private static SafeSshSession Connect()

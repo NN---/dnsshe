@@ -11,7 +11,7 @@ namespace NN.Dnsshe.LibSsh.Native
 
         protected override bool ReleaseHandle()
         {
-            NativeMethods.ssh_clean_pubkey_hash(handle);
+            NativeMethods.ssh_clean_pubkey_hash(this);
             return true;
         }
     }
